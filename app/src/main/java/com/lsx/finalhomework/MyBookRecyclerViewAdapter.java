@@ -3,7 +3,6 @@ package com.lsx.finalhomework;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +42,7 @@ public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<MyBookRecycl
         holder.nameView.setText(item.getName());
         holder.authorView.setText(item.getAuthor());
         holder.priceView.setText(String.format("%s元", item.getPrice()));
+        holder.imgView.setImageURL(item.getImgUrl());
         holder.itemView.setOnClickListener(v -> mItemClickListener.onItemClick(v));
     }
 
@@ -68,7 +68,7 @@ public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<MyBookRecycl
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView nameView;
         public final TextView authorView;
-        public final ImageView imgView;
+        public final NWImageView imgView;
         public final TextView priceView;
 
         public ViewHolder(@NonNull View itemView) {

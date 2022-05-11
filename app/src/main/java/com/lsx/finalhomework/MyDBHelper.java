@@ -1,8 +1,6 @@
 package com.lsx.finalhomework;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -23,6 +21,15 @@ public class MyDBHelper extends SQLiteOpenHelper {
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "username VARCHAR(50)," +
                 "password VARCHAR(50))");
+        db.execSQL("CREATE TABLE book" +
+                "(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "category TINYINT," +
+                "name VARCHAR(25)," +
+                "img_url VARCHAR(100)," +
+                "author VARCHAR(15)," +
+                "isbn CHAR(13)," +
+                "description TEXT," +
+                "price DOUBLE)");
     }
 
 }

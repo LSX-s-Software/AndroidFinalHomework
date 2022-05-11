@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/bookDetailFragment"
         android:name="com.lsx.finalhomework.BookDetailFragment"
-        android:label="fragment_book_detail"
+        android:label="图书详情"
         tools:layout="@layout/fragment_book_detail" />
 
 </navigation>

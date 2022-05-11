@@ -29,7 +29,8 @@ public class BookFragment extends Fragment implements MyBookRecyclerViewAdapter.
     RecyclerView recyclerView;
     ViewGroup container;
 
-    List<Book> list = new ArrayList<>();
+    BookService bs = new BookService();
+    List<Book> bookList;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -42,8 +43,7 @@ public class BookFragment extends Fragment implements MyBookRecyclerViewAdapter.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        list.add(new Book(1, "name", "url", "author", "ISBN", "desc", 18.5));
-        list.add(new Book(2, "name", "url", "author", "ISBN", "desc", 20.5));
+        bookList = bs.getList();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class BookFragment extends Fragment implements MyBookRecyclerViewAdapter.
             Context context = view.getContext();
             recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            MyBookRecyclerViewAdapter adapter = new MyBookRecyclerViewAdapter(list);
+            MyBookRecyclerViewAdapter adapter = new MyBookRecyclerViewAdapter(bookList);
             adapter.setOnItemClickListener(this);
             recyclerView.setAdapter(adapter);
         }
@@ -65,9 +65,8 @@ public class BookFragment extends Fragment implements MyBookRecyclerViewAdapter.
 
     public void onItemClick(View v) {
         int position = recyclerView.getChildAdapterPosition(v);
-        BookDetailFragment bookDetailFragment = new BookDetailFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("id", list.get(position).getId());
+        bundle.putInt("id", bookList.get(position).getId());
         NavController navController = Navigation.findNavController(v);
         navController.navigate(R.id.action_navigation_booklist_to_bookDetailFragment, bundle);
     }
