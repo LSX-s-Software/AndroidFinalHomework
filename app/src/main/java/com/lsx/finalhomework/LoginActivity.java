@@ -3,6 +3,7 @@ package com.lsx.finalhomework;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
         super.onCreate(savedInstanceState);
@@ -36,6 +37,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         toggleLoginReg.setOnClickListener(this);
         loginButton.setOnClickListener(this);
+
+        SharedPreferences sp = getSharedPreferences("preferences", MODE_PRIVATE);
+        String defaultUsername = sp.getString("username", "");
+        if (!defaultUsername.equals("")) {
+            this.username.setText(defaultUsername);
+        }
     }
 
     private void goToMain() {
@@ -61,6 +68,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (login) {
                     switch (auth.authUser(user, pwd)) {
                         case SUCCESS:
+                            SharedPreferences sp = getSharedPreferences("preferences", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("username", user);
+                            editor.apply();
                             goToMain();
                             break;
                         case INVALID_USERNAME_OR_PWD:
