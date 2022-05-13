@@ -4,6 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MyAuth extends MyDBHelper {
 
@@ -31,7 +35,7 @@ public class MyAuth extends MyDBHelper {
         }
         ContentValues values = new ContentValues();
         values.put("username", username);
-        values.put("password", password);
+        values.put("password", md5(password));
         long id = db.insert("account", null, values);
         db.close();
         return id > 0 ? AuthResult.SUCCESS : AuthResult.UNKNOWN_ERROR;
@@ -49,6 +53,29 @@ public class MyAuth extends MyDBHelper {
         }
         cursor.close();
         db.close();
-        return result != null && result.equals(password) ? AuthResult.SUCCESS : AuthResult.INVALID_USERNAME_OR_PWD;
+        return result != null && result.equals(md5(password)) ? AuthResult.SUCCESS : AuthResult.INVALID_USERNAME_OR_PWD;
+    }
+
+    static String md5(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return "";
+        }
+        MessageDigest md5 = null;
+        try {
+            md5 = MessageDigest.getInstance("MD5");
+            byte[] bytes = md5.digest(string.getBytes());
+            StringBuilder result = new StringBuilder();
+            for (byte b : bytes) {
+                String temp = Integer.toHexString(b & 0xff);
+                if (temp.length() == 1) {
+                    temp = "0" + temp;
+                }
+                result.append(temp);
+            }
+            return result.toString().toUpperCase();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

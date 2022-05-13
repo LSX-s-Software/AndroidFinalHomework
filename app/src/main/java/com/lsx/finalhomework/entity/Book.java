@@ -3,7 +3,9 @@ package com.lsx.finalhomework.entity;
 public class Book {
 
     public enum Category {
-
+        COMPUTER,
+        NOVEL,
+        DICTIONARY
     }
 
     int id;
@@ -17,8 +19,9 @@ public class Book {
 
     public Book() { }
 
-    public Book(int id, String name, String imgUrl, String author, String ISBN, String description, double price) {
+    public Book(int id, Category category, String name, String imgUrl, String author, String ISBN, String description, double price) {
         this.id = id;
+        this.category = category;
         this.name = name;
         this.imgUrl = imgUrl;
         this.author = author;

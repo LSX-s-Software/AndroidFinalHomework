@@ -29,7 +29,7 @@ public class BookFragment extends Fragment implements MyBookRecyclerViewAdapter.
     RecyclerView recyclerView;
     ViewGroup container;
 
-    BookService bs = new BookService();
+    BookService bs;
     List<Book> bookList;
 
     /**
@@ -43,6 +43,7 @@ public class BookFragment extends Fragment implements MyBookRecyclerViewAdapter.
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        bs = new BookService(getContext());
         bookList = bs.getList();
     }
 

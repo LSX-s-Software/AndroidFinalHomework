@@ -15,7 +15,7 @@ import com.lsx.finalhomework.entity.Book;
 public class BookDetailFragment extends Fragment implements View.OnClickListener {
 
     int bookId;
-    BookService bs = new BookService();
+    BookService bs;
 
     TextView nameView, authorView, isbnView, descView;
     NWImageView imageView;
@@ -44,6 +44,7 @@ public class BookDetailFragment extends Fragment implements View.OnClickListener
         FloatingActionButton addToCart = view.findViewById(R.id.btn_addToCart);
         addToCart.setOnClickListener(this);
 
+        bs = new BookService(getContext());
         Book b = bs.getBook(bookId);
         nameView.setText(b.getName());
         authorView.setText(b.getAuthor());
