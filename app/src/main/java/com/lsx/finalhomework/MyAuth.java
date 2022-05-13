@@ -11,6 +11,8 @@ import java.security.NoSuchAlgorithmException;
 
 public class MyAuth extends MyDBHelper {
 
+    private static int userId;
+
     public MyAuth(Context context) {
         super(context);
     }
@@ -21,6 +23,14 @@ public class MyAuth extends MyDBHelper {
         USER_EXISTED,
         TOKEN_TOO_LONG,
         UNKNOWN_ERROR
+    }
+
+    public static int getUserId() {
+        return userId;
+    }
+
+    private static void setUserId(int userId) {
+        MyAuth.userId = userId;
     }
 
     public AuthResult addUser(String username, String password) {
@@ -36,9 +46,13 @@ public class MyAuth extends MyDBHelper {
         ContentValues values = new ContentValues();
         values.put("username", username);
         values.put("password", md5(password));
-        long id = db.insert("account", null, values);
+        int id = (int) db.insert("account", null, values);
         db.close();
-        return id > 0 ? AuthResult.SUCCESS : AuthResult.UNKNOWN_ERROR;
+        if (id > 0) {
+            userId = id;
+            return AuthResult.SUCCESS;
+        } else
+            return AuthResult.UNKNOWN_ERROR;
     }
 
     public AuthResult authUser(String username, String password) {
@@ -50,10 +64,16 @@ public class MyAuth extends MyDBHelper {
         if (cursor.getCount() != 0) {
             cursor.moveToNext();
             result = cursor.getString((int) cursor.getColumnIndex("password"));
+            userId = cursor.getInt((int) cursor.getColumnIndex("id"));
         }
         cursor.close();
         db.close();
-        return result != null && result.equals(md5(password)) ? AuthResult.SUCCESS : AuthResult.INVALID_USERNAME_OR_PWD;
+        if (result != null && result.equals(md5(password)))
+            return AuthResult.SUCCESS;
+        else {
+            userId = 0;
+            return AuthResult.INVALID_USERNAME_OR_PWD;
+        }
     }
 
     static String md5(String string) {

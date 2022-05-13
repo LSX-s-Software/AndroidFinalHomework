@@ -26,7 +26,6 @@ import java.util.List;
 public class BookFragment extends Fragment implements MyBookRecyclerViewAdapter.OnItemClickListener {
 
     RecyclerView recyclerView;
-    ViewGroup container;
 
     BookService bs;
     List<Book> bookList;
@@ -48,7 +47,6 @@ public class BookFragment extends Fragment implements MyBookRecyclerViewAdapter.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.container = container;
         View view = inflater.inflate(R.layout.book_fragment_item_list, container, false);
 
         // Set the adapter

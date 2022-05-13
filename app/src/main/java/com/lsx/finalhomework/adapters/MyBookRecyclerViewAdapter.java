@@ -14,7 +14,7 @@ import com.lsx.finalhomework.entities.Book;
 
 import java.util.List;
 
-public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<MyBookRecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
+public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<MyBookRecyclerViewAdapter.ViewHolder> {
 
     public interface OnItemClickListener {
         void onItemClick(View view);
@@ -54,16 +54,6 @@ public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<MyBookRecycl
     @Override
     public int getItemCount() {
         return bookList.size();
-    }
-
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
-    @Override
-    public void onClick(View v) {
-
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

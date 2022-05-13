@@ -5,7 +5,10 @@ public class Book {
     public enum Category {
         COMPUTER,
         NOVEL,
-        DICTIONARY
+        SCIENCE,
+        EDUCATION,
+        HISTORY,
+        OTHER
     }
 
     int id;

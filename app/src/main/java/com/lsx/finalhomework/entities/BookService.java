@@ -22,9 +22,27 @@ public class BookService extends MyDBHelper {
         super(context);
     }
 
-    private Book deserializer(Cursor cursor) {
+    private static Book deserializer(Cursor cursor) {
         Book b = new Book();
         b.setId(cursor.getInt((int) cursor.getColumnIndex("id")));
+        b.setName(cursor.getString((int) cursor.getColumnIndex("name")));
+        b.setCategory(Book.Category.values()[cursor.getInt((int) cursor.getColumnIndex("category"))]);
+        b.setImgUrl(cursor.getString((int) cursor.getColumnIndex("img_url")));
+        b.setAuthor(cursor.getString((int) cursor.getColumnIndex("author")));
+        b.setISBN(cursor.getString((int) cursor.getColumnIndex("isbn")));
+        b.setDescription(cursor.getString((int) cursor.getColumnIndex("description")));
+        b.setPrice(cursor.getDouble((int) cursor.getColumnIndex("price")));
+        return b;
+    }
+
+    /**
+     * @param cursor cursor
+     * @param idLocIndex 联合查询时Book的ID的位置
+     * @return 反序列化后的Book
+     */
+    public static Book deserializer(Cursor cursor, int idLocIndex) {
+        Book b = new Book();
+        b.setId(cursor.getInt(idLocIndex));
         b.setName(cursor.getString((int) cursor.getColumnIndex("name")));
         b.setCategory(Book.Category.values()[cursor.getInt((int) cursor.getColumnIndex("category"))]);
         b.setImgUrl(cursor.getString((int) cursor.getColumnIndex("img_url")));

@@ -8,12 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.lsx.finalhomework.MyAuth;
 import com.lsx.finalhomework.NWImageView;
 import com.lsx.finalhomework.R;
 import com.lsx.finalhomework.entities.Book;
 import com.lsx.finalhomework.entities.BookService;
+import com.lsx.finalhomework.entities.Cart;
 
 public class BookDetailFragment extends Fragment implements View.OnClickListener {
 
@@ -61,7 +64,9 @@ public class BookDetailFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_addToCart) {
-
+            Cart cart = new Cart(getContext(), MyAuth.getUserId());
+            cart.addToCart(bookId, 1);
+            Toast.makeText(getContext(), "已加入购物车", Toast.LENGTH_SHORT).show();
         }
     }
 }

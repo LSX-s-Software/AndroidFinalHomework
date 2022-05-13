@@ -21,7 +21,14 @@
         android:id="@+id/navigation_cart"
         android:name="com.lsx.finalhomework.controllers.CartFragment"
         android:label="购物车"
-        tools:layout="@layout/cart_fragment_item_list" />
+        tools:layout="@layout/cart_fragment_item_list" >
+        <action
+            android:id="@+id/action_navigation_cart_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_order"
         android:name="com.lsx.finalhomework.controllers.OrderFragment"
