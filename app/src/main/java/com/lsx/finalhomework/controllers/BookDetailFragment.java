@@ -1,4 +1,4 @@
-package com.lsx.finalhomework;
+package com.lsx.finalhomework.controllers;
 
 import android.os.Bundle;
 
@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.lsx.finalhomework.entity.Book;
+import com.lsx.finalhomework.NWImageView;
+import com.lsx.finalhomework.R;
+import com.lsx.finalhomework.entities.Book;
+import com.lsx.finalhomework.entities.BookService;
 
 public class BookDetailFragment extends Fragment implements View.OnClickListener {
 

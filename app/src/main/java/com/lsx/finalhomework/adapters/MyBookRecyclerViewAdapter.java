@@ -1,4 +1,4 @@
-package com.lsx.finalhomework;
+package com.lsx.finalhomework.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.lsx.finalhomework.entity.Book;
+import com.lsx.finalhomework.NWImageView;
+import com.lsx.finalhomework.R;
+import com.lsx.finalhomework.entities.Book;
 
 import java.util.List;
 

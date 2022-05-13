@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_booklist"
-        android:name="com.lsx.finalhomework.BookFragment"
+        android:name="com.lsx.finalhomework.controllers.BookFragment"
         android:label="图书列表"
         tools:layout="@layout/book_fragment_item_list" >
         <action
@@ -19,17 +19,17 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_cart"
-        android:name="com.lsx.finalhomework.CartFragment"
+        android:name="com.lsx.finalhomework.controllers.CartFragment"
         android:label="购物车"
         tools:layout="@layout/cart_fragment_item_list" />
     <fragment
         android:id="@+id/navigation_order"
-        android:name="com.lsx.finalhomework.OrderFragment"
+        android:name="com.lsx.finalhomework.controllers.OrderFragment"
         android:label="历史订单"
         tools:layout="@layout/order_fragment_item_list" />
     <fragment
         android:id="@+id/bookDetailFragment"
-        android:name="com.lsx.finalhomework.BookDetailFragment"
+        android:name="com.lsx.finalhomework.controllers.BookDetailFragment"
         android:label="图书详情"
         tools:layout="@layout/fragment_book_detail" />
 

@@ -1,14 +1,13 @@
-package com.lsx.finalhomework;
+package com.lsx.finalhomework.adapters;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lsx.finalhomework.placeholder.PlaceholderContent.PlaceholderItem;
-import com.lsx.finalhomework.databinding.CartFragmentItemBinding;
+import com.lsx.finalhomework.databinding.OrderFragmentItemBinding;
 
 import java.util.List;
 
@@ -16,18 +15,18 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyCartRecyclerViewAdapter extends RecyclerView.Adapter<MyCartRecyclerViewAdapter.ViewHolder> {
+public class MyOrderRecyclerViewAdapter extends RecyclerView.Adapter<MyOrderRecyclerViewAdapter.ViewHolder> {
 
     private final List<PlaceholderItem> mValues;
 
-    public MyCartRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public MyOrderRecyclerViewAdapter(List<PlaceholderItem> items) {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(CartFragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(OrderFragmentItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
     }
 
@@ -48,7 +47,7 @@ public class MyCartRecyclerViewAdapter extends RecyclerView.Adapter<MyCartRecycl
         public final TextView mContentView;
         public PlaceholderItem mItem;
 
-        public ViewHolder(CartFragmentItemBinding binding) {
+        public ViewHolder(OrderFragmentItemBinding binding) {
             super(binding.getRoot());
             mIdView = binding.itemNumber;
             mContentView = binding.content;

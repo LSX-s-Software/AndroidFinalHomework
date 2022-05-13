@@ -1,24 +1,23 @@
-package com.lsx.finalhomework;
+package com.lsx.finalhomework.controllers;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.lsx.finalhomework.entity.Book;
+import com.lsx.finalhomework.adapters.MyBookRecyclerViewAdapter;
+import com.lsx.finalhomework.R;
+import com.lsx.finalhomework.entities.Book;
+import com.lsx.finalhomework.entities.BookService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,4 +1,4 @@
-package com.lsx.finalhomework;
+package com.lsx.finalhomework.controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.lsx.finalhomework.MyAuth;
+import com.lsx.finalhomework.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 

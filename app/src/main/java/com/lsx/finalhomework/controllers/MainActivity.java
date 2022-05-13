@@ -1,4 +1,4 @@
-package com.lsx.finalhomework;
+package com.lsx.finalhomework.controllers;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.lsx.finalhomework.R;
 import com.lsx.finalhomework.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

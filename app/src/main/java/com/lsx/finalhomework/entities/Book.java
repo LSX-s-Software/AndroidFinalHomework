@@ -1,4 +1,4 @@
-package com.lsx.finalhomework.entity;
+package com.lsx.finalhomework.entities;
 
 public class Book {
 
