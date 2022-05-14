@@ -49,7 +49,7 @@ public class Cart extends MyDBHelper {
             values.put("account_id", accountId);
             values.put("book_id", bookId);
             values.put("quantity", quantity);
-            db.insert("cart", null, values);
+            db.insertOrThrow("cart", null, values);
         } else {
             cursor.moveToNext();
             int quantityInCart = cursor.getInt((int) cursor.getColumnIndex("quantity"));

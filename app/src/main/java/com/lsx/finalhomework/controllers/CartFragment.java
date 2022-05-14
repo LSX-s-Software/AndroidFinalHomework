@@ -26,14 +26,14 @@ import com.lsx.finalhomework.entities.Book;
 import com.lsx.finalhomework.entities.BookService;
 import com.lsx.finalhomework.entities.Cart;
 import com.lsx.finalhomework.entities.CartItem;
-import com.lsx.finalhomework.placeholder.PlaceholderContent;
+import com.lsx.finalhomework.entities.OrderService;
 
 import java.util.List;
 
 /**
  * A fragment representing a list of Items.
  */
-public class CartFragment extends Fragment implements MyCartRecyclerViewAdapter.OnItemClickListener {
+public class CartFragment extends Fragment implements View.OnClickListener, MyCartRecyclerViewAdapter.OnItemClickListener {
 
     RecyclerView recyclerView;
 
@@ -70,11 +70,7 @@ public class CartFragment extends Fragment implements MyCartRecyclerViewAdapter.
 
         totalPriceView = view.findViewById(R.id.text_totalprice);
         Button orderBtn = view.findViewById(R.id.btn_order);
-        orderBtn.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "购买成功", Toast.LENGTH_SHORT).show();
-            NavController navController = Navigation.findNavController(v);
-            navController.navigate(R.id.action_navigation_cart_to_navigation_order);
-        });
+        orderBtn.setOnClickListener(this);
 
         updateTotalPriceView();
 
@@ -108,5 +104,25 @@ public class CartFragment extends Fragment implements MyCartRecyclerViewAdapter.
         bundle.putInt("id", cartItemList.get(position).getBookId());
         NavController navController = Navigation.findNavController(recyclerView);
         navController.navigate(R.id.action_navigation_cart_to_bookDetailFragment, bundle);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_order:
+                if (cartItemList.size() > 0) {
+                    OrderService orderService = new OrderService(getContext(), MyAuth.getUserId());
+                    orderService.createOrder(cart.getCart());
+                    cart.clearCart();
+                    updateTotalPriceView();
+                    recyclerView.getAdapter().notifyItemRangeRemoved(0, cartItemList.size());
+                    Toast.makeText(getContext(), "购买成功", Toast.LENGTH_SHORT).show();
+                    NavController navController = Navigation.findNavController(v);
+                    navController.navigate(R.id.action_navigation_cart_to_navigation_order);
+                } else {
+                    Toast.makeText(getContext(), "购物车为空", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 }
