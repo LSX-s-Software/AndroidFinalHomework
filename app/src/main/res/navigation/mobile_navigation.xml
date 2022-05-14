@@ -28,6 +28,14 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_navigation_cart_to_navigation_order"
+            app:destination="@id/navigation_order"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_cart"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/navigation_order"

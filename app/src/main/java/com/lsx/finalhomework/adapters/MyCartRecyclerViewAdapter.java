@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.lsx.finalhomework.NWImageView;
 import com.lsx.finalhomework.R;
 import com.lsx.finalhomework.entities.CartItem;
-import com.lsx.finalhomework.placeholder.PlaceholderContent.PlaceholderItem;
-import com.lsx.finalhomework.databinding.CartFragmentItemBinding;
 
 import java.util.List;
 
@@ -43,7 +41,7 @@ public class MyCartRecyclerViewAdapter extends RecyclerView.Adapter<MyCartRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         CartItem item = cartItemList.get(position);
         holder.nameTextView.setText(item.getBook().getName());
-        holder.priceTextView.setText(Double.toString(item.getBook().getPrice()));
+        holder.priceTextView.setText(String.format("¥%s", item.getBook().getPrice()));
         holder.countTextView.setText(String.valueOf(item.getQuantity()));
         holder.imageView.setImageURL(item.getBook().getImgUrl());
         holder.itemView.setOnClickListener(v -> mItemClickListener.onItemClick(holder.getAbsoluteAdapterPosition()));

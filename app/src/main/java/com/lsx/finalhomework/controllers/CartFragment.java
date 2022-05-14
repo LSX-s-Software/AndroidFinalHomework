@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +15,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lsx.finalhomework.MyAuth;
 import com.lsx.finalhomework.adapters.MyCartRecyclerViewAdapter;
@@ -35,6 +39,7 @@ public class CartFragment extends Fragment implements MyCartRecyclerViewAdapter.
 
     Cart cart;
     List<CartItem> cartItemList;
+    TextView totalPriceView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,25 +61,44 @@ public class CartFragment extends Fragment implements MyCartRecyclerViewAdapter.
         View view = inflater.inflate(R.layout.cart_fragment_item_list, container, false);
 
         // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            MyCartRecyclerViewAdapter adapter = new MyCartRecyclerViewAdapter(cartItemList);
-            adapter.setOnItemClickListener(this);
-            recyclerView.setAdapter(adapter);
-        }
+        recyclerView = (RecyclerView) view.findViewById(R.id.list_cart);
+        Context context = recyclerView.getContext();
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        MyCartRecyclerViewAdapter adapter = new MyCartRecyclerViewAdapter(cartItemList);
+        adapter.setOnItemClickListener(this);
+        recyclerView.setAdapter(adapter);
+
+        totalPriceView = view.findViewById(R.id.text_totalprice);
+        Button orderBtn = view.findViewById(R.id.btn_order);
+        orderBtn.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "购买成功", Toast.LENGTH_SHORT).show();
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_navigation_cart_to_navigation_order);
+        });
+
+        updateTotalPriceView();
+
         return view;
+    }
+
+    private void updateTotalPriceView() {
+        if (cartItemList.size() > 0) {
+            totalPriceView.setText(String.format("¥%.2f", cart.getTotalPrice()));
+        } else {
+            totalPriceView.setText("¥0.00");
+        }
     }
 
     public int onItemQuantityChange(int position, int quantity) {
         if (cartItemList.get(position).getQuantity() + quantity > 0) {
             cart.addToCart(cartItemList.get(position).getBookId(), quantity);
             cartItemList = cart.getCart();
+            updateTotalPriceView();
             return cartItemList.get(position).getQuantity();
         } else {
             cart.removeFromCart(cartItemList.get(position).getBookId());
             cartItemList = cart.getCart();
+            updateTotalPriceView();
             return 0;
         }
     }

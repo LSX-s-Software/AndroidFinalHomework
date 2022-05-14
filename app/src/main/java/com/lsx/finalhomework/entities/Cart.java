@@ -72,4 +72,11 @@ public class Cart extends MyDBHelper {
         db.delete("cart", "account_id=?", new String[]{String.valueOf(accountId)});
         db.close();
     }
+
+    public double getTotalPrice() {
+        double totalPrice = 0;
+        for (CartItem cartItem : getCart())
+            totalPrice += cartItem.getBook().getPrice() * cartItem.getQuantity();
+        return totalPrice;
+    }
 }
