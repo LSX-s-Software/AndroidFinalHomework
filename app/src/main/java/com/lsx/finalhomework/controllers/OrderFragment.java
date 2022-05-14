@@ -2,17 +2,15 @@ package com.lsx.finalhomework.controllers;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.lsx.finalhomework.MyAuth;
 import com.lsx.finalhomework.R;
@@ -32,6 +30,8 @@ public class OrderFragment extends Fragment implements MyOrderRecyclerViewAdapte
     OrderService orderService;
     List<Order> orderList;
 
+    static OrderFragment instance;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -45,6 +45,11 @@ public class OrderFragment extends Fragment implements MyOrderRecyclerViewAdapte
 
         orderService = new OrderService(getContext(), MyAuth.getUserId());
         orderList = orderService.getOrderList();
+        instance = this;
+    }
+
+    public static OrderFragment getInstance() {
+        return instance;
     }
 
     @Override
@@ -53,8 +58,8 @@ public class OrderFragment extends Fragment implements MyOrderRecyclerViewAdapte
 
         // Set the adapter
         if (view instanceof RecyclerView) {
+            recyclerView = (RecyclerView) view;
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
 //                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             MyOrderRecyclerViewAdapter adapter = new MyOrderRecyclerViewAdapter(orderList);
@@ -66,10 +71,18 @@ public class OrderFragment extends Fragment implements MyOrderRecyclerViewAdapte
     }
 
     public void onItemClick(int position) {
-//        Order order = orderList.get(position);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("order", order);
-//        NavController navController = Navigation.findNavController(view);
-//        navController.navigate(R.id.action_orderFragment_to_orderDetailFragment, bundle);
+        Order order = orderList.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", order.getId());
+        bundle.putInt("position", position);
+        NavController navController = Navigation.findNavController(recyclerView);
+        navController.navigate(R.id.action_navigation_order_to_orderDetailFragment, bundle);
+    }
+
+    public void refresh(int position) {
+        orderList.remove(position);
+        MyOrderRecyclerViewAdapter adapter = (MyOrderRecyclerViewAdapter) recyclerView.getAdapter();
+        assert adapter != null;
+        adapter.notifyItemRemoved(position);
     }
 }

@@ -41,11 +41,21 @@
         android:id="@+id/navigation_order"
         android:name="com.lsx.finalhomework.controllers.OrderFragment"
         android:label="历史订单"
-        tools:layout="@layout/order_fragment_item_list" />
+        tools:layout="@layout/order_fragment_item_list" >
+        <action
+            android:id="@+id/action_navigation_order_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+    </fragment>
     <fragment
         android:id="@+id/bookDetailFragment"
         android:name="com.lsx.finalhomework.controllers.BookDetailFragment"
         android:label="图书详情"
         tools:layout="@layout/fragment_book_detail" />
+    <fragment
+        android:id="@+id/orderDetailFragment"
+        android:name="com.lsx.finalhomework.controllers.OrderDetailFragment"
+        android:label="订单详情"/>
 
 </navigation>

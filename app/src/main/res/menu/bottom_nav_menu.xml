@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_booklist"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="图书列表" />
 
     <item
         android:id="@+id/navigation_cart"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_gouwuchefill"
         android:title="购物车" />
 
     <item
         android:id="@+id/navigation_order"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_dingdan"
         android:title="历史订单" />
 
 </menu>

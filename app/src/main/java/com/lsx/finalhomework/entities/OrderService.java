@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.lsx.finalhomework.MyAuth;
 import com.lsx.finalhomework.MyDBHelper;
 
 import java.time.LocalDateTime;
@@ -36,12 +37,14 @@ public class OrderService extends MyDBHelper {
             orderDetailValues.put("quantity", orderDetail.getQuantity());
             db.insertOrThrow("order_detail", null, orderDetailValues);
         }
+        db.close();
     }
 
-    public void deleteOrder(Order order) {
+    public void deleteOrder(int orderId) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete("order_detail", "order_id=?", new String[]{String.valueOf(order.getId())});
-        db.delete("order", "account_id=?", new String[]{String.valueOf(order.getAccountId())});
+        db.delete("order_detail", "order_id=?", new String[]{String.valueOf(orderId)});
+        db.delete("book_order", "id=?", new String[]{String.valueOf(orderId)});
+        db.close();
     }
 
     public List<Order> getOrderList() {
@@ -51,7 +54,7 @@ public class OrderService extends MyDBHelper {
         Cursor cursor = db.rawQuery("select * from book_order,order_detail,book " +
                 "where account_id=? AND book_order.id=order_detail.order_id AND book.id=order_detail.book_id", new String[]{String.valueOf(accountId)});
         while (cursor.moveToNext()) {
-            int id = cursor.getInt((int) cursor.getColumnIndex("id"));
+            int id = cursor.getInt(0);
             Order order;
             if (orderMap.containsKey(id)) {
                 order = orderList.get(orderMap.get(id));
@@ -76,7 +79,36 @@ public class OrderService extends MyDBHelper {
                 orderMap.put(order.getId(), orderList.size() - 1);
             }
         }
+        cursor.close();
+        db.close();
         return orderList;
+    }
+
+    public Order getOrder(int orderId) {
+        Order order = new Order();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("book_order", null, "id=?", new String[]{String.valueOf(orderId)}, null, null, null);
+        if (cursor.moveToNext()) {
+            order.setId(cursor.getInt((int) cursor.getColumnIndex("id")));
+            order.setAccountId(cursor.getInt((int) cursor.getColumnIndex("account_id")));
+            order.setOrderTime(LocalDateTime.parse(cursor.getString((int) cursor.getColumnIndex("order_time")), Order.dateTimeFormatter));
+            order.setOrderDetails(new ArrayList<>());
+            cursor = db.rawQuery("select * from order_detail,book " +
+                    "where order_detail.order_id=? AND book.id=order_detail.book_id", new String[]{String.valueOf(orderId)});
+            while (cursor.moveToNext()) {
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.setId(cursor.getInt(0));
+                orderDetail.setOrderId(cursor.getInt((int) cursor.getColumnIndex("order_id")));
+                orderDetail.setBookId(cursor.getInt((int) cursor.getColumnIndex("book_id")));
+                orderDetail.setBook(BookService.deserializer(cursor, 5));
+                orderDetail.setOrderPrice(cursor.getDouble((int) cursor.getColumnIndex("order_price")));
+                orderDetail.setQuantity(cursor.getInt((int) cursor.getColumnIndex("quantity")));
+                order.getOrderDetails().add(orderDetail);
+            }
+        }
+        cursor.close();
+        db.close();
+        return order;
     }
 
     public void createOrder(List<CartItem> cart) {
