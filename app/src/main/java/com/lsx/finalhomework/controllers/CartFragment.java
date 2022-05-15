@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lsx.finalhomework.MyAuth;
 import com.lsx.finalhomework.adapters.MyCartRecyclerViewAdapter;
 import com.lsx.finalhomework.R;
@@ -108,21 +109,21 @@ public class CartFragment extends Fragment implements View.OnClickListener, MyCa
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_order:
-                if (cartItemList.size() > 0) {
-                    OrderService orderService = new OrderService(getContext(), MyAuth.getUserId());
-                    orderService.createOrder(cart.getCart());
-                    cart.clearCart();
-                    updateTotalPriceView();
-                    recyclerView.getAdapter().notifyItemRangeRemoved(0, cartItemList.size());
-                    Toast.makeText(getContext(), "购买成功", Toast.LENGTH_SHORT).show();
-                    NavController navController = Navigation.findNavController(v);
-                    navController.navigate(R.id.action_navigation_cart_to_navigation_order);
-                } else {
-                    Toast.makeText(getContext(), "购物车为空", Toast.LENGTH_SHORT).show();
-                }
-                break;
+        if (v.getId() == R.id.btn_order) {
+            if (cartItemList.size() > 0) {
+                OrderService orderService = new OrderService(getContext(), MyAuth.getUserId());
+                orderService.createOrder(cart.getCart());
+                cart.clearCart();
+                updateTotalPriceView();
+                BottomNavigationView navBar = getActivity().findViewById(R.id.nav_view);
+                navBar.removeBadge(R.id.navigation_cart);
+                recyclerView.getAdapter().notifyItemRangeRemoved(0, cartItemList.size());
+                Toast.makeText(getContext(), "购买成功", Toast.LENGTH_SHORT).show();
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.action_navigation_cart_to_navigation_order);
+            } else {
+                Toast.makeText(getContext(), "购物车为空", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

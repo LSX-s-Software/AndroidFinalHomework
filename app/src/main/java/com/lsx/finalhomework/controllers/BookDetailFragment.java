@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.lsx.finalhomework.MyAuth;
 import com.lsx.finalhomework.NWImageView;
@@ -67,6 +68,8 @@ public class BookDetailFragment extends Fragment implements View.OnClickListener
             Cart cart = new Cart(getContext(), MyAuth.getUserId());
             cart.addToCart(bookId, 1);
             Toast.makeText(getContext(), "已加入购物车", Toast.LENGTH_SHORT).show();
+            BottomNavigationView navBar  = getActivity().findViewById(R.id.nav_view);
+            navBar.getOrCreateBadge(R.id.navigation_cart).setNumber(cart.getCartCount());
         }
     }
 }

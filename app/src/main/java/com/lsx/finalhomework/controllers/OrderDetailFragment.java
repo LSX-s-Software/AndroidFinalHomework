@@ -95,7 +95,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
                     .setPositiveButton("确定", (dialog, which) -> {
                         orderService.deleteOrder(orderId);
                         Toast.makeText(getContext(), "删除成功", Toast.LENGTH_SHORT).show();
-                        OrderFragment.instance.refresh(position);
+                        OrderFragment.getInstance().refresh(position);
                         Navigation.findNavController(v).navigateUp();
                     })
                     .setNegativeButton("取消", (dialog, which) -> {}).create()

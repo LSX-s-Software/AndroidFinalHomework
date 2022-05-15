@@ -41,6 +41,15 @@ public class Cart extends MyDBHelper {
         return result;
     }
 
+    public int getCartCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("cart", null, "account_id=?", new String[]{String.valueOf(accountId)}, null, null, null);
+        int result = cursor.getCount();
+        cursor.close();
+        db.close();
+        return result;
+    }
+
     public void addToCart(int bookId, int quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query("cart", null, "account_id=? and book_id=?", new String[]{String.valueOf(accountId), String.valueOf(bookId)}, null, null,null);
