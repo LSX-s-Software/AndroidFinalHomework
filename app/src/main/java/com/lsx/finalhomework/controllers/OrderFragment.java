@@ -61,7 +61,6 @@ public class OrderFragment extends Fragment implements MyOrderRecyclerViewAdapte
             recyclerView = (RecyclerView) view;
             Context context = view.getContext();
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             MyOrderRecyclerViewAdapter adapter = new MyOrderRecyclerViewAdapter(orderList);
             adapter.setOnItemClickListener(this);
             recyclerView.setAdapter(adapter);
