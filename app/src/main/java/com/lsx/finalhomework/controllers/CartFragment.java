@@ -84,6 +84,12 @@ public class CartFragment extends Fragment implements View.OnClickListener, MyCa
         } else {
             totalPriceView.setText("¥0.00");
         }
+        BottomNavigationView navBar  = getActivity().findViewById(R.id.nav_view);
+        int cartCount = cart.getCartCount();
+        if (cartCount > 0)
+            navBar.getOrCreateBadge(R.id.navigation_cart).setNumber(cartCount);
+        else
+            navBar.removeBadge(R.id.navigation_cart);
     }
 
     public int onItemQuantityChange(int position, int quantity) {
