@@ -8,7 +8,26 @@ public class Book {
         SCIENCE,
         EDUCATION,
         HISTORY,
-        OTHER
+        OTHER;
+
+        public String getName() {
+            switch (this) {
+                case COMPUTER:
+                    return "计算机";
+                case NOVEL:
+                    return "小说";
+                case SCIENCE:
+                    return "科学";
+                case EDUCATION:
+                    return "教育";
+                case HISTORY:
+                    return "历史";
+                case OTHER:
+                    return "其他";
+                default:
+                    return "";
+            }
+        }
     }
 
     int id;

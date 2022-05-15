@@ -16,6 +16,8 @@
         <entry key="app/src/main/res/layout/fragment_order_detail.xml" value="0.31068840579710144" />
         <entry key="app/src/main/res/layout/order_fragment_item.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/order_fragment_item_list.xml" value="0.31929347826086957" />
+        <entry key="app/src/main/res/layout/pager_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/sample_my_pager_item.xml" value="0.1897644927536232" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.4036458333333333" />
       </map>
     </option>

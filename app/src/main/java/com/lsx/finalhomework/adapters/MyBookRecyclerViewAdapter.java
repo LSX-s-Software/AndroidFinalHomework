@@ -20,12 +20,17 @@ public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<MyBookRecycl
         void onItemClick(View view);
     }
 
-    private final List<Book> bookList;
+    private List<Book> bookList;
 
     OnItemClickListener mItemClickListener;
 
     public MyBookRecyclerViewAdapter(List<Book> items) {
         bookList = items;
+    }
+
+    public void setData(List<Book> bookList) {
+        this.bookList = bookList;
+        notifyDataSetChanged();
     }
 
     @NonNull
