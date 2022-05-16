@@ -9,11 +9,13 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/book_fragment_item.xml" value="0.3129528985507246" />
         <entry key="app/src/main/res/layout/book_fragment_item_list.xml" value="0.31929347826086957" />
+        <entry key="app/src/main/res/layout/book_fragment_item_wide.xml" value="0.31023550724637683" />
         <entry key="app/src/main/res/layout/cart_fragment_item.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/cart_fragment_item_list.xml" value="0.31929347826086957" />
         <entry key="app/src/main/res/layout/fragment_book_detail.xml" value="0.31929347826086957" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3020833333333333" />
         <entry key="app/src/main/res/layout/fragment_order_detail.xml" value="0.31068840579710144" />
+        <entry key="app/src/main/res/layout/list_header.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/order_fragment_item.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/order_fragment_item_list.xml" value="0.31929347826086957" />
         <entry key="app/src/main/res/layout/pager_item.xml" value="0.25" />

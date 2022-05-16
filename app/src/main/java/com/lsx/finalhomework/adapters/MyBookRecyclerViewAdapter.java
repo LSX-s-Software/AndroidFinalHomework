@@ -12,44 +12,56 @@ import com.lsx.finalhomework.NWImageView;
 import com.lsx.finalhomework.R;
 import com.lsx.finalhomework.entities.Book;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<MyBookRecyclerViewAdapter.ViewHolder> {
+public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private enum ViewType {
+        CONTENT,
+        HEADER
+    }
 
     public interface OnItemClickListener {
         void onItemClick(View view);
     }
 
-    private List<Book> bookList;
+    private ArrayList bookList;
 
     OnItemClickListener mItemClickListener;
 
-    public MyBookRecyclerViewAdapter(List<Book> items) {
+    public MyBookRecyclerViewAdapter(ArrayList items) {
         bookList = items;
-    }
-
-    public void setData(List<Book> bookList) {
-        this.bookList = bookList;
-        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_fragment_item, parent, false);
-
-        return new ViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view;
+        if (viewType == ViewType.CONTENT.ordinal()) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_fragment_item, parent, false);
+            return new ContentViewHolder(view);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_header, parent, false);
+            return new HeaderViewHolder(view);
+        }
     }
 
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        Book item = bookList.get(position);
-        holder.itemView.setTag(item.getId());
-        holder.nameView.setText(item.getName());
-        holder.authorView.setText(item.getAuthor());
-        holder.priceView.setText(String.format("%s元", item.getPrice()));
-        holder.imgView.setImageURL(item.getImgUrl());
-        holder.itemView.setOnClickListener(v -> mItemClickListener.onItemClick(v));
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        if (holder.getItemViewType() == ViewType.CONTENT.ordinal()) {
+            Book item = (Book) bookList.get(position);
+            ContentViewHolder contentHolder = (ContentViewHolder) holder;
+            contentHolder.itemView.setTag(item.getId());
+            contentHolder.nameView.setText(item.getName());
+            contentHolder.authorView.setText(item.getAuthor());
+            contentHolder.priceView.setText(String.format("%s元", item.getPrice()));
+            contentHolder.imgView.setImageURL(item.getImgUrl());
+            contentHolder.itemView.setOnClickListener(v -> mItemClickListener.onItemClick(v));
+        } else {
+            String header = ((Book.Category) bookList.get(position)).getName();
+            HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
+            headerHolder.headerTextView.setText(header);
+        }
     }
 
     public void setOnItemClickListener(OnItemClickListener mItemClickListener) {
@@ -61,19 +73,34 @@ public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<MyBookRecycl
         return bookList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemViewType(int position) {
+        return bookList.get(position) instanceof Book ? ViewType.CONTENT.ordinal() : ViewType.HEADER.ordinal();
+    }
+
+    public static class ContentViewHolder extends RecyclerView.ViewHolder {
         public final TextView nameView;
         public final TextView authorView;
         public final NWImageView imgView;
         public final TextView priceView;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ContentViewHolder(View itemView) {
             super(itemView);
 
             nameView = itemView.findViewById(R.id.text_name);
             authorView = itemView.findViewById(R.id.text_author);
             imgView = itemView.findViewById(R.id.list_image);
             priceView = itemView.findViewById(R.id.text_price);
+        }
+    }
+
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
+        public final TextView headerTextView;
+
+        public HeaderViewHolder(View itemView) {
+            super(itemView);
+
+            headerTextView = itemView.findViewById(R.id.text_list_header);
         }
     }
 }

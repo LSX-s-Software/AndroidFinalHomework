@@ -76,7 +76,7 @@ public class MyCartRecyclerViewAdapter extends RecyclerView.Adapter<MyCartRecycl
         return cartItemList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public final NWImageView imageView;
         public final TextView nameTextView;
         public final TextView priceTextView;

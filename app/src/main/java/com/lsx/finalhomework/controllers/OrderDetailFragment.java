@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,7 +67,7 @@ public class OrderDetailFragment extends Fragment implements View.OnClickListene
         // 订单书本列表
         LinearLayout orderDetailView = view.findViewById(R.id.linear_order_detail);
         for (OrderDetail orderDetail : orderDetails) {
-            View itemView = inflater.inflate(R.layout.book_fragment_item, orderDetailView, false);
+            View itemView = inflater.inflate(R.layout.book_fragment_item_wide, orderDetailView, false);
             TextView nameView = itemView.findViewById(R.id.text_name);
             TextView authorView = itemView.findViewById(R.id.text_author);
             NWImageView imgView = itemView.findViewById(R.id.list_image);

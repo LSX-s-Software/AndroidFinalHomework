@@ -6,7 +6,6 @@ public class Book {
         COMPUTER,
         NOVEL,
         SCIENCE,
-        EDUCATION,
         HISTORY,
         OTHER;
 
@@ -18,8 +17,6 @@ public class Book {
                     return "小说";
                 case SCIENCE:
                     return "科学";
-                case EDUCATION:
-                    return "教育";
                 case HISTORY:
                     return "历史";
                 case OTHER:

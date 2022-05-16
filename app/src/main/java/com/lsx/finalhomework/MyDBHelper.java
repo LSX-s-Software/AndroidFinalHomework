@@ -9,7 +9,7 @@ import com.lsx.finalhomework.entities.BookService;
 public class MyDBHelper extends SQLiteOpenHelper {
 
     public MyDBHelper(Context context) {
-        super(context, "bookstore_app.db", null, 5);
+        super(context, "bookstore_app.db", null, 6);
     }
 
     @Override
