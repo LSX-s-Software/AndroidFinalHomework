@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         case USER_EXISTED:
                             break;
                         case TOKEN_TOO_LONG:
-                            Toast.makeText(LoginActivity.this, "用户名或密码太长", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "用户名太长", Toast.LENGTH_SHORT).show();
                             break;
                         case UNKNOWN_ERROR:
                             Toast.makeText(LoginActivity.this, "出现未知错误", Toast.LENGTH_SHORT).show();
@@ -93,6 +93,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     // 注册
                     switch (auth.addUser(user, pwd)) {
                         case SUCCESS:
+                            SharedPreferences sp = getSharedPreferences("preferences", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("username", user);
+                            editor.apply();
                             goToMain();
                             break;
                         case INVALID_USERNAME_OR_PWD:
@@ -101,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Toast.makeText(LoginActivity.this, "用户已存在", Toast.LENGTH_SHORT).show();
                             break;
                         case TOKEN_TOO_LONG:
-                            Toast.makeText(LoginActivity.this, "用户名或密码太长", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "用户名太长", Toast.LENGTH_SHORT).show();
                             break;
                         case UNKNOWN_ERROR:
                             Toast.makeText(LoginActivity.this, "出现未知错误", Toast.LENGTH_SHORT).show();

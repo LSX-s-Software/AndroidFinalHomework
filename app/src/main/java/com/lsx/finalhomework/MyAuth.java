@@ -34,7 +34,7 @@ public class MyAuth extends MyDBHelper {
     }
 
     public AuthResult addUser(String username, String password) {
-        if (username.length() > 50 || password.length() > 50)
+        if (username.length() > 50)
             return AuthResult.TOKEN_TOO_LONG;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query("account", null, "username=?", new String[]{username}, null, null, null);
@@ -56,7 +56,7 @@ public class MyAuth extends MyDBHelper {
     }
 
     public AuthResult authUser(String username, String password) {
-        if (username.length() > 50 || password.length() > 50)
+        if (username.length() > 50)
             return AuthResult.TOKEN_TOO_LONG;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query("account", null, "username=?", new String[]{username}, null, null, null);
