@@ -1,5 +1,6 @@
 package com.lsx.finalhomework.controllers;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -117,16 +118,23 @@ public class CartFragment extends Fragment implements View.OnClickListener, MyCa
     public void onClick(View v) {
         if (v.getId() == R.id.btn_order) {
             if (cartItemList.size() > 0) {
-                OrderService orderService = new OrderService(getContext(), MyAuth.getUserId());
-                orderService.createOrder(cart.getCart());
-                cart.clearCart();
-                updateTotalPriceView();
-                BottomNavigationView navBar = getActivity().findViewById(R.id.nav_view);
-                navBar.removeBadge(R.id.navigation_cart);
-                recyclerView.getAdapter().notifyItemRangeRemoved(0, cartItemList.size());
-                Toast.makeText(getContext(), "购买成功", Toast.LENGTH_SHORT).show();
-                NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.action_navigation_cart_to_navigation_order);
+                new AlertDialog.Builder(getContext())
+                        .setTitle(R.string.app_name)
+                        .setMessage("是否确定购买？")
+                        .setPositiveButton("确定", (dialog, which) -> {
+                            OrderService orderService = new OrderService(getContext(), MyAuth.getUserId());
+                            orderService.createOrder(cart.getCart());
+                            cart.clearCart();
+                            updateTotalPriceView();
+                            BottomNavigationView navBar = getActivity().findViewById(R.id.nav_view);
+                            navBar.removeBadge(R.id.navigation_cart);
+                            recyclerView.getAdapter().notifyItemRangeRemoved(0, cartItemList.size());
+                            Toast.makeText(getContext(), "购买成功", Toast.LENGTH_SHORT).show();
+                            NavController navController = Navigation.findNavController(v);
+                            navController.navigate(R.id.action_navigation_cart_to_navigation_order);
+                        })
+                        .setNegativeButton("取消", (dialog, which) -> {}).create()
+                        .show();
             } else {
                 Toast.makeText(getContext(), "购物车为空", Toast.LENGTH_SHORT).show();
             }

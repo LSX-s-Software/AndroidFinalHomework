@@ -3,10 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_gouwuchefill.xml" value="0.403" />
+        <entry key="app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.403" />
         <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.3625" />
         <entry key="app/src/main/res/layout/activity_book_detail.xml" value="0.31929347826086957" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2820715862771739" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.4036458333333333" />
         <entry key="app/src/main/res/layout/book_fragment_item.xml" value="0.3129528985507246" />
         <entry key="app/src/main/res/layout/book_fragment_item_list.xml" value="0.31929347826086957" />
         <entry key="app/src/main/res/layout/book_fragment_item_wide.xml" value="0.31023550724637683" />
