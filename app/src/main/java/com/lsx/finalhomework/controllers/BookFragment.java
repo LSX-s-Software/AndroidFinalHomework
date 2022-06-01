@@ -53,10 +53,12 @@ public class BookFragment extends Fragment implements View.OnClickListener, MyBo
         super.onCreate(savedInstanceState);
 
         bs = new BookService(getContext());
-        // 分类
+        // 获取图书列表
         List<Book> bookList = bs.getList();
+        // 创建分类到该类别的图书列表的映射
         HashMap<Book.Category, List<Book>> map = new HashMap<>();
         categoryList = new ArrayList<>();
+        // 创建分类标题在列表中的位置到分类序号的映射
         headerPositionMap = new HashMap<>();
         for (int i = 0; i < bookList.size(); i++) {
             if (!map.containsKey(bookList.get(i).getCategory())) {
@@ -66,6 +68,7 @@ public class BookFragment extends Fragment implements View.OnClickListener, MyBo
             }
             map.get(bookList.get(i).getCategory()).add(bookList.get(i));
         }
+        // 将分类的标题和各个分类的图书列表放入一个数组中
         bookListWithHeader = new ArrayList<>();
         for (int i = 0; i < categoryList.size(); i++) {
             Book.Category c = categoryList.get(i);
@@ -102,7 +105,7 @@ public class BookFragment extends Fragment implements View.OnClickListener, MyBo
                 //根据索引来获取对应的itemView
                 int position = gridLayoutManager.findFirstVisibleItemPosition();
                 if (headerPositionMap.containsKey(position))
-                    setActivePager(headerPositionMap.get(position));
+                    setActivePager(headerPositionMap.get(position) - (dy < 0 ? 1 : 0));
             }
         });
 
@@ -112,7 +115,7 @@ public class BookFragment extends Fragment implements View.OnClickListener, MyBo
         for (int i = 0; i < categoryList.size(); i++) {
             Book.Category c = categoryList.get(i);
             CardView v = (CardView) inflater.inflate(R.layout.pager_item, pagerView, false);
-            v.setTag(c.ordinal() + 1);
+            v.setTag(c.ordinal());
             TextView pagerTextView = (TextView) v.findViewById(R.id.pager_text);
             pagerTextView.setText(c.getName());
             v.setOnClickListener(this);
@@ -139,7 +142,7 @@ public class BookFragment extends Fragment implements View.OnClickListener, MyBo
     public void onClick(View v) {
         // 处理分类切换事件
         int position = pagerView.indexOfChild(v);
-        int category = (int) v.getTag() - 1;
+        int category = (int) v.getTag();
         int headerPosition = 0;
         if (position > 0) {
             for (int i = 0; i < bookListWithHeader.size(); i++) {
@@ -156,7 +159,7 @@ public class BookFragment extends Fragment implements View.OnClickListener, MyBo
     }
 
     private void setActivePager(int position) {
-        if (currentPagerIndex == position)
+        if (currentPagerIndex == position || position < 0 || position >= pagerView.getChildCount())
             return;
         for (int i = 0; i < pagerView.getChildCount(); i++) {
             CardView v1 = (CardView) pagerView.getChildAt(i);
