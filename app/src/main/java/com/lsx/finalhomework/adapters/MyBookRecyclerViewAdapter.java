@@ -39,9 +39,11 @@ public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if (viewType == ViewType.CONTENT.ordinal()) {
+            // 书本
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.book_fragment_item, parent, false);
             return new ContentViewHolder(view);
         } else {
+            // 分组标题
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_header, parent, false);
             return new HeaderViewHolder(view);
         }
@@ -49,6 +51,7 @@ public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
 
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         if (holder.getItemViewType() == ViewType.CONTENT.ordinal()) {
+            // 书本
             Book item = (Book) bookList.get(position);
             ContentViewHolder contentHolder = (ContentViewHolder) holder;
             contentHolder.itemView.setTag(item.getId());
@@ -58,6 +61,7 @@ public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             contentHolder.imgView.setImageURL(item.getImgUrl());
             contentHolder.itemView.setOnClickListener(v -> mItemClickListener.onItemClick(v));
         } else {
+            // 分组标题
             String header = ((Book.Category) bookList.get(position)).getName();
             HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
             headerHolder.headerTextView.setText(header);
@@ -73,6 +77,9 @@ public class MyBookRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         return bookList.size();
     }
 
+    /**
+     * 判断当前单元格的类型
+     */
     @Override
     public int getItemViewType(int position) {
         return bookList.get(position) instanceof Book ? ViewType.CONTENT.ordinal() : ViewType.HEADER.ordinal();

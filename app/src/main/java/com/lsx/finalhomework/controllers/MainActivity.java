@@ -29,15 +29,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+        // 配置下方导航栏的切换逻辑
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_booklist, R.id.navigation_cart, R.id.navigation_order)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+        // 处理页面跳转事件
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+            // 如果进入二级页面则隐藏导航栏
             if (navDestination.getId() == R.id.navigation_booklist || navDestination.getId() == R.id.navigation_cart || navDestination.getId() == R.id.navigation_order) {
                 showBottomNav();
             } else {
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 处理返回按钮点击事件
+     */
     @Override
     public boolean onSupportNavigateUp() {
         return navController.navigateUp();

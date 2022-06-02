@@ -29,6 +29,9 @@ public class Cart extends MyDBHelper {
         return cartItem;
     }
 
+    /**
+     * 获取购物车列表
+     */
     public List<CartItem> getCart() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM cart,book WHERE cart.account_id=? AND cart.book_id=book.id", new String[]{String.valueOf(accountId)});
@@ -41,6 +44,9 @@ public class Cart extends MyDBHelper {
         return result;
     }
 
+    /**
+     * 获取购物车数量
+     */
     public int getCartCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query("cart", null, "account_id=?", new String[]{String.valueOf(accountId)}, null, null, null);
@@ -50,6 +56,9 @@ public class Cart extends MyDBHelper {
         return result;
     }
 
+    /**
+     * 添加到购物车
+     */
     public void addToCart(int bookId, int quantity) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.query("cart", null, "account_id=? and book_id=?", new String[]{String.valueOf(accountId), String.valueOf(bookId)}, null, null,null);
@@ -70,18 +79,27 @@ public class Cart extends MyDBHelper {
         db.close();
     }
 
+    /**
+     * 从购物车中删除
+     */
     public void removeFromCart(int bookId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("cart", "account_id=? and book_id=?", new String[]{String.valueOf(accountId), String.valueOf(bookId)});
         db.close();
     }
 
+    /**
+     * 清空购物车
+     */
     public void clearCart() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("cart", "account_id=?", new String[]{String.valueOf(accountId)});
         db.close();
     }
 
+    /**
+     * 获取购物车总价
+     */
     public double getTotalPrice() {
         double totalPrice = 0;
         for (CartItem cartItem : getCart())

@@ -33,6 +33,12 @@ public class MyAuth extends MyDBHelper {
         MyAuth.userId = userId;
     }
 
+    /**
+     * 用户注册
+     * @param username 用户名
+     * @param password 密码
+     * @return 注册结果
+     */
     public AuthResult addUser(String username, String password) {
         if (username.length() > 50)
             return AuthResult.TOKEN_TOO_LONG;
@@ -55,6 +61,12 @@ public class MyAuth extends MyDBHelper {
             return AuthResult.UNKNOWN_ERROR;
     }
 
+    /**
+     * 用户登录
+     * @param username 用户名
+     * @param password 密码
+     * @return 登录结果
+     */
     public AuthResult authUser(String username, String password) {
         if (username.length() > 50)
             return AuthResult.TOKEN_TOO_LONG;

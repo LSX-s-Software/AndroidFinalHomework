@@ -85,7 +85,9 @@ public class BookFragment extends Fragment implements View.OnClickListener, MyBo
         // Set the adapter
         Context context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.book_list);
+        // 两列
         gridLayoutManager = new GridLayoutManager(context, 2);
+        // 针对不同的单元格类型设置不同的单元格大小
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

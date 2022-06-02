@@ -23,6 +23,10 @@ public class OrderService extends MyDBHelper {
         this.accountId = accountId;
     }
 
+    /**
+     * 添加订单
+     * @param order 订单
+     */
     public void addOrder(Order order) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -40,6 +44,10 @@ public class OrderService extends MyDBHelper {
         db.close();
     }
 
+    /**
+     * 删除订单
+     * @param orderId 订单id
+     */
     public void deleteOrder(int orderId) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete("order_detail", "order_id=?", new String[]{String.valueOf(orderId)});
@@ -47,6 +55,10 @@ public class OrderService extends MyDBHelper {
         db.close();
     }
 
+    /**
+     * 获取订单列表
+     * @return 订单列表
+     */
     public List<Order> getOrderList() {
         List<Order> orderList = new ArrayList<>();
         Map<Integer, Integer> orderMap = new HashMap<>();
@@ -84,6 +96,11 @@ public class OrderService extends MyDBHelper {
         return orderList;
     }
 
+    /**
+     * 获取订单
+     * @param orderId 订单id
+     * @return 订单
+     */
     public Order getOrder(int orderId) {
         Order order = new Order();
         SQLiteDatabase db = getReadableDatabase();
@@ -111,6 +128,10 @@ public class OrderService extends MyDBHelper {
         return order;
     }
 
+    /**
+     * 创建
+     * @param cart 购物车
+     */
     public void createOrder(List<CartItem> cart) {
         Order newOrder = new Order();
         newOrder.setAccountId(accountId);

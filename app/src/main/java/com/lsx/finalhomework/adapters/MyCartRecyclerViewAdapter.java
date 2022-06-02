@@ -44,26 +44,29 @@ public class MyCartRecyclerViewAdapter extends RecyclerView.Adapter<MyCartRecycl
         holder.priceTextView.setText(String.format("¥%s", item.getBook().getPrice()));
         holder.countTextView.setText(String.valueOf(item.getQuantity()));
         holder.imageView.setImageURL(item.getBook().getImgUrl());
+        // 监听项目点击事件
         holder.itemView.setOnClickListener(v -> mItemClickListener.onItemClick(holder.getAbsoluteAdapterPosition()));
+        // 监听减号按钮点击事件
         holder.btnMinus.setOnClickListener(v -> {
             int adapterPosition = holder.getAbsoluteAdapterPosition();
+            // 调用CartFragment的onItemQuantityChange方法处理书本数量变化事件
             int newQ = mItemClickListener.onItemQuantityChange(adapterPosition, -1);
             item.setQuantity(newQ);
             holder.countTextView.setText(String.valueOf(newQ));
             if (newQ == 0) {
+                // 从列表中移除该项
                 cartItemList.remove(item);
+                // 通知列表更新
                 notifyItemRemoved(adapterPosition);
             }
         });
+        // 监听加号按钮点击事件
         holder.btnPlus.setOnClickListener(v -> {
             int adapterPosition = holder.getAbsoluteAdapterPosition();
+            // 调用CartFragment的onItemQuantityChange方法处理书本数量变化事件
             int newQ = mItemClickListener.onItemQuantityChange(adapterPosition, 1);
             item.setQuantity(newQ);
             holder.countTextView.setText(String.valueOf(newQ));
-            if (newQ == 0) {
-                cartItemList.remove(item);
-                notifyItemRemoved(holder.getAbsoluteAdapterPosition());
-            }
         });
     }
 

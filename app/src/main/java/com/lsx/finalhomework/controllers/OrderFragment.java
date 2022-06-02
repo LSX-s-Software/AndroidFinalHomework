@@ -82,6 +82,6 @@ public class OrderFragment extends Fragment implements MyOrderRecyclerViewAdapte
         orderList.remove(position);
         MyOrderRecyclerViewAdapter adapter = (MyOrderRecyclerViewAdapter) recyclerView.getAdapter();
         assert adapter != null;
-        adapter.notifyItemRemoved(position);
+        adapter.notifyItemRemoved(position); // 通知列表项有更新
     }
 }
