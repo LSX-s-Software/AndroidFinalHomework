@@ -41,7 +41,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, MyCa
 
     Cart cart;
     List<CartItem> cartItemList;
-    TextView totalPriceView;
+    TextView totalPriceView, placeholderView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -71,6 +71,7 @@ public class CartFragment extends Fragment implements View.OnClickListener, MyCa
         recyclerView.setAdapter(adapter);
 
         totalPriceView = view.findViewById(R.id.text_totalprice);
+        placeholderView = view.findViewById(R.id.text_placeholder);
         Button orderBtn = view.findViewById(R.id.btn_order);
         orderBtn.setOnClickListener(this);
 
@@ -82,8 +83,10 @@ public class CartFragment extends Fragment implements View.OnClickListener, MyCa
     private void updateTotalPriceView() {
         if (cartItemList.size() > 0) {
             totalPriceView.setText(String.format("¥%.2f", cart.getTotalPrice()));
+            placeholderView.setVisibility(View.GONE);
         } else {
             totalPriceView.setText("¥0.00");
+            placeholderView.setVisibility(View.VISIBLE);
         }
         BottomNavigationView navBar  = getActivity().findViewById(R.id.nav_view);
         int cartCount = cart.getCartCount();
